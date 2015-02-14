@@ -1,0 +1,14 @@
+{
+  "name": "planet-battles",
+  "version": "0.1.0",
+  "description": "It's a game where two planets attack each other.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Martin-Smucker <mlmartin13@gmail.com> (http://www.martinsmucker.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "phaser": "^2.2.2"
+  }
+}
