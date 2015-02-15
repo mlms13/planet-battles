@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     open = require('open'),
     source = require('vinyl-source-stream'),
     stylish = require('jshint-stylish'),
+    stylus = require('gulp-stylus'),
     watchify = require('watchify'),
 
     // configuration
@@ -18,16 +19,21 @@ var gulp = require('gulp'),
         all: ['./node_modules/phaser/build/phaser.min.js',
              './node_modules/phaser/build/phaser.map']
       },
-      js: {
-        main: './src/index.js',
-        all: ['./src/**/*.js', './Gulpfile.js']
-      },
       html: {
         all: ['./src/index.html']
       },
       assets: {
         all: ['./src/assets/**/*'],
         dest: './dist/assets/'
+      },
+      js: {
+        main: './src/index.js',
+        all: ['./src/**/*.js', './Gulpfile.js']
+      },
+      stylus: {
+        main: './src/styl/index.styl',
+        all: './src/styl/**/*.styl',
+        dest: './dist/css'
       },
       dest: './dist'
     };
@@ -41,6 +47,13 @@ gulp.task('copy', function () {
 gulp.task('copy:assets', function () {
   return gulp.src(paths.assets.all)
     .pipe(gulp.dest(paths.assets.dest))
+    .pipe(lr());
+});
+
+gulp.task('stylus', function () {
+  return gulp.src(paths.stylus.main)
+    .pipe(stylus())
+    .pipe(gulp.dest(paths.stylus.dest))
     .pipe(lr());
 });
 
@@ -81,7 +94,9 @@ gulp.task('watch', function () {
 
   bundler.on('update', rebundle);
   gulp.watch(paths.js.all, ['lint']);
+  gulp.watch(paths.html.all, ['copy']);
   gulp.watch(paths.assets.all, ['copy:assets']);
+  gulp.watch(paths.stylus.all, ['stylus']);
 
   return rebundle();
 });
@@ -96,6 +111,6 @@ gulp.task('server', function (cb) {
   }).listen(port, cb);
 });
 
-gulp.task('default', ['copy', 'copy:assets', 'js', 'server', 'watch'], function () {
+gulp.task('default', ['copy', 'copy:assets', 'stylus', 'server', 'watch'], function () {
   open('http://localhost:' + port);
 });
