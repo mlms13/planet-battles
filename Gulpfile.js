@@ -4,10 +4,12 @@ var gulp = require('gulp'),
     // gulp plugins and helpers
     browserify = require('browserify'),
     jshint = require('gulp-jshint'),
+    lr = require('gulp-livereload'),
     nodeStatic = require('node-static'),
     open = require('open'),
     source = require('vinyl-source-stream'),
     stylish = require('jshint-stylish'),
+    watchify = require('watchify'),
 
     // configuration
     port = gutil.env.port || 3000,
@@ -28,7 +30,8 @@ var gulp = require('gulp'),
 
 gulp.task('copy', function () {
   return gulp.src(paths.lib.all.concat(paths.html.all))
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(paths.dest))
+    .pipe(lr());
 });
 
 gulp.task('lint', function () {
@@ -44,6 +47,34 @@ gulp.task('js', ['lint'], function () {
     .pipe(gulp.dest(paths.dest));
 });
 
+gulp.task('watch', function () {
+  lr.listen();
+
+  var bundler = watchify(browserify(paths.js.main, {
+    cache: {},
+    packageCache: {},
+    fullPaths: true,
+    debug: true
+  }));
+
+  function rebundle() {
+    var t = Date.now();
+    gutil.log('Starting Watchify rebundle');
+    return bundler.bundle()
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest('./dist'))
+        .pipe(lr())
+        .on('end', function () {
+            gutil.log('Finished bundling after:', gutil.colors.magenta(Date.now() - t + ' ms'));
+        });
+  }
+
+  bundler.on('update', rebundle);
+  gulp.watch(paths.js.all, ['lint']);
+
+  return rebundle();
+});
+
 gulp.task('server', function (cb) {
   var file = new nodeStatic.Server(paths.dest);
 
@@ -54,6 +85,6 @@ gulp.task('server', function (cb) {
   }).listen(port, cb);
 });
 
-gulp.task('default', ['copy', 'js', 'server'], function () {
+gulp.task('default', ['copy', 'js', 'server', 'watch'], function () {
   open('http://localhost:' + port);
 });
