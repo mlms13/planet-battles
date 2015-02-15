@@ -7,11 +7,13 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
 });
 
 function preload() {
-  // TODO
+  game.load.image('space', 'assets/space.png');
 }
 
 function create() {
-  // TODO
+  game.physics.startSystem(Phaser.Physics.ARCADE);
+
+  game.add.sprite(0, 0, 'space');
 }
 
 function update() {

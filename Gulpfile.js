@@ -25,12 +25,22 @@ var gulp = require('gulp'),
       html: {
         all: ['./src/index.html']
       },
+      assets: {
+        all: ['./src/assets/**/*'],
+        dest: './dist/assets/'
+      },
       dest: './dist'
     };
 
 gulp.task('copy', function () {
   return gulp.src(paths.lib.all.concat(paths.html.all))
     .pipe(gulp.dest(paths.dest))
+    .pipe(lr());
+});
+
+gulp.task('copy:assets', function () {
+  return gulp.src(paths.assets.all)
+    .pipe(gulp.dest(paths.assets.dest))
     .pipe(lr());
 });
 
@@ -71,6 +81,7 @@ gulp.task('watch', function () {
 
   bundler.on('update', rebundle);
   gulp.watch(paths.js.all, ['lint']);
+  gulp.watch(paths.assets.all, ['copy:assets']);
 
   return rebundle();
 });
@@ -85,6 +96,6 @@ gulp.task('server', function (cb) {
   }).listen(port, cb);
 });
 
-gulp.task('default', ['copy', 'js', 'server', 'watch'], function () {
+gulp.task('default', ['copy', 'copy:assets', 'js', 'server', 'watch'], function () {
   open('http://localhost:' + port);
 });
