@@ -1,7 +1,14 @@
 var gulp = require('gulp'),
+    gutil = require('gulp-util'),
+
+    // gulp plugins and helpers
     browserify = require('browserify'),
     nodeStatic = require('node-static'),
-    source = require('vinyl-source-stream');
+    open = require('open'),
+    source = require('vinyl-source-stream'),
+
+    // configuration
+    port = gutil.env.port || 3000;
 
 gulp.task('copy', function () {
   return gulp.src(['./node_modules/phaser/build/phaser.min.js', './src/index.html'])
@@ -22,7 +29,9 @@ gulp.task('server', function (cb) {
     req.addListener('end', function () {
       file.serve(req, res);
     }).resume();
-  }).listen(3000, cb);
+  }).listen(port, cb);
 });
 
-gulp.task('default', ['copy', 'js', 'server']);
+gulp.task('default', ['copy', 'js', 'server'], function () {
+  open('http://localhost:' + port);
+});
