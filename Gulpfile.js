@@ -3,9 +3,11 @@ var gulp = require('gulp'),
 
     // gulp plugins and helpers
     browserify = require('browserify'),
+    jshint = require('gulp-jshint'),
     nodeStatic = require('node-static'),
     open = require('open'),
     source = require('vinyl-source-stream'),
+    stylish = require('jshint-stylish'),
 
     // configuration
     port = gutil.env.port || 3000,
@@ -15,7 +17,8 @@ var gulp = require('gulp'),
              './node_modules/phaser/build/phaser.map']
       },
       js: {
-        main: './src/index.js'
+        main: './src/index.js',
+        all: ['./src/**/*.js', './Gulpfile.js']
       },
       html: {
         all: ['./src/index.html']
@@ -28,7 +31,13 @@ gulp.task('copy', function () {
     .pipe(gulp.dest(paths.dest));
 });
 
-gulp.task('js', function () {
+gulp.task('lint', function () {
+  return gulp.src(paths.js.all)
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('js', ['lint'], function () {
   return browserify(paths.js.main, {})
     .bundle()
     .pipe(source('bundle.js'))
