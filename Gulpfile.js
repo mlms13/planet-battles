@@ -17,30 +17,38 @@ var gulp = require('gulp'),
     paths = {
       lib: {
         all: ['./node_modules/phaser/build/phaser.min.js',
-             './node_modules/phaser/build/phaser.map']
+             './node_modules/phaser/build/phaser.map'],
+        dest: './dist/js'
       },
       html: {
-        all: ['./src/index.html']
+        all: ['./src/index.html'],
+        dest: './dist'
       },
       assets: {
         all: ['./src/assets/**/*'],
         dest: './dist/assets/'
       },
       js: {
-        main: './src/index.js',
-        all: ['./src/**/*.js', './Gulpfile.js']
+        main: './src/js/index.js',
+        all: ['./src/js/**/*.js', './Gulpfile.js'],
+        dest: './dist/js'
       },
       stylus: {
         main: './src/styl/index.styl',
         all: './src/styl/**/*.styl',
         dest: './dist/css'
-      },
-      dest: './dist'
+      }
     };
 
-gulp.task('copy', function () {
-  return gulp.src(paths.lib.all.concat(paths.html.all))
-    .pipe(gulp.dest(paths.dest))
+gulp.task('copy:html', function () {
+  return gulp.src(paths.html.all)
+    .pipe(gulp.dest(paths.html.dest))
+    .pipe(lr());
+});
+
+gulp.task('copy:lib', function () {
+  return gulp.src(paths.lib.all)
+    .pipe(gulp.dest(paths.lib.dest))
     .pipe(lr());
 });
 
@@ -67,7 +75,7 @@ gulp.task('js', ['lint'], function () {
   return browserify(paths.js.main, {})
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(paths.js.dest));
 });
 
 gulp.task('watch', function () {
@@ -85,7 +93,7 @@ gulp.task('watch', function () {
     gutil.log('Starting Watchify rebundle');
     return bundler.bundle()
         .pipe(source('bundle.js'))
-        .pipe(gulp.dest('./dist'))
+        .pipe(gulp.dest(paths.js.dest))
         .pipe(lr())
         .on('end', function () {
             gutil.log('Finished bundling after:', gutil.colors.magenta(Date.now() - t + ' ms'));
@@ -111,6 +119,6 @@ gulp.task('server', function (cb) {
   }).listen(port, cb);
 });
 
-gulp.task('default', ['copy', 'copy:assets', 'stylus', 'server', 'watch'], function () {
+gulp.task('default', ['copy:html', 'copy:lib', 'copy:assets', 'stylus', 'server', 'watch'], function () {
   open('http://localhost:' + port);
 });
