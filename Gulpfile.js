@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     jshint = require('gulp-jshint'),
     lr = require('gulp-livereload'),
-    nodeStatic = require('node-static'),
+    nodemon = require('nodemon'),
     open = require('open'),
     source = require('vinyl-source-stream'),
     stylish = require('jshint-stylish'),
@@ -13,7 +13,6 @@ var gulp = require('gulp'),
     watchify = require('watchify'),
 
     // configuration
-    port = gutil.env.port || 3000,
     paths = {
       lib: {
         all: ['./node_modules/phaser/build/phaser.min.js',
@@ -21,21 +20,21 @@ var gulp = require('gulp'),
         dest: './dist/js'
       },
       html: {
-        all: ['./src/index.html'],
+        all: ['./client/index.html'],
         dest: './dist'
       },
       assets: {
-        all: ['./src/assets/**/*'],
+        all: ['./client/assets/**/*'],
         dest: './dist/assets/'
       },
       js: {
-        main: './src/js/index.js',
-        all: ['./src/js/**/*.js', './Gulpfile.js'],
+        main: './client/js/index.js',
+        all: ['./client/js/**/*.js', './Gulpfile.js'],
         dest: './dist/js'
       },
       stylus: {
-        main: './src/styl/index.styl',
-        all: './src/styl/**/*.styl',
+        main: './client/styl/index.styl',
+        all: './client/styl/**/*.styl',
         dest: './dist/css'
       }
     };
@@ -109,16 +108,13 @@ gulp.task('watch', function () {
   return rebundle();
 });
 
-gulp.task('server', function (cb) {
-  var file = new nodeStatic.Server(paths.dest);
-
-  require('http').createServer(function (req, res) {
-    req.addListener('end', function () {
-      file.serve(req, res);
-    }).resume();
-  }).listen(port, cb);
+gulp.task('server', function () {
+  nodemon({
+    'script': 'server/app.js',
+    'ignore': ['.git', 'dist/**', 'client/**']
+  });
 });
 
 gulp.task('default', ['copy:html', 'copy:lib', 'copy:assets', 'stylus', 'server', 'watch'], function () {
-  open('http://localhost:' + port);
+  open('http://localhost:3000');
 });
