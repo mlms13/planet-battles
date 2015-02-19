@@ -77,7 +77,7 @@ gulp.task('js', ['lint'], function () {
     .pipe(gulp.dest(paths.js.dest));
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', ['lint'], function () {
   lr.listen();
 
   var bundler = watchify(browserify(paths.js.main, {
