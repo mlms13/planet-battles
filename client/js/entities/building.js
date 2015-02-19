@@ -1,4 +1,4 @@
-function Building(game, image, posX, posY, ) {
+function Building(game, image, posX, posY) {
   //
 }
 
