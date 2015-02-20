@@ -20,7 +20,8 @@ Game.prototype = {
     space.addChild(planet);
 
     planet.buildings = this.add.group();
-    planet.buildings.create(planet.width / 2, planet.height / 2, 'colony');
+    var colony = planet.buildings.create(planet.width / 2, planet.height / 2, 'colony');
+    colony.anchor.setTo(0.5, 0.5);
     planet.addChild(planet.buildings);
   },
 
