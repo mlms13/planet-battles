@@ -10,19 +10,24 @@ Game.prototype = {
     this.load.image('colony', 'assets/colony.png');
   },
 
+  _createPlanet: function (posX, posY) {
+    var planet = this.add.sprite(posX, posY, 'planet');
+    var buildings = this.add.group();
+    buildings.colony = buildings.create(planet.width / 2, planet.height / 2, 'colony');
+    buildings.colony.anchor.setTo(0.5);
+
+    planet.addChild(buildings);
+    return planet;
+  },
+
   create: function () {
     var i;
 
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
     space = this.add.sprite(0, 0, 'space');
-    planet = this.add.sprite(this.world.centerX - 65, this.world.centerY - 65, 'planet');
+    planet = this._createPlanet(this.world.centerX - 65, this.world.centerY - 65);
     space.addChild(planet);
-
-    planet.buildings = this.add.group();
-    var colony = planet.buildings.create(planet.width / 2, planet.height / 2, 'colony');
-    colony.anchor.setTo(0.5, 0.5);
-    planet.addChild(planet.buildings);
   },
 
   update: function () {
