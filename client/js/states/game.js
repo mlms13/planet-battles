@@ -2,19 +2,36 @@ function Game() {}
 
 var space;
 var planet;
+var turrets = [];
 
 Game.prototype = {
   preload: function () {
     this.load.image('space', 'assets/space.png');
     this.load.image('planet', 'assets/planet.png');
     this.load.image('colony', 'assets/colony.png');
+    this.load.image('turret', 'assets/turret.png');
+  },
+
+  _addTurrets: function (group, howMany, radius, offset) {
+    var sprite, angle, turretX, turretY, i;
+
+    for (i = 0; i < howMany; i++) {
+      angle = 360 / howMany;
+      turretX = Math.cos(i * angle * (Math.PI / 180)) * radius + offset;
+      turretY = Math.sin(i * angle * (Math.PI / 180)) * radius + offset;
+      sprite = group.create(turretX, turretY, 'turret');
+      sprite.anchor.setTo(0.5);
+    }
   },
 
   _createPlanet: function (posX, posY) {
     var planet = this.add.sprite(posX, posY, 'planet');
+    var planetRadius = planet.width / 2;
     var buildings = this.add.group();
-    buildings.colony = buildings.create(planet.width / 2, planet.height / 2, 'colony');
+    buildings.colony = buildings.create(planetRadius, planetRadius, 'colony');
     buildings.colony.anchor.setTo(0.5);
+
+    this._addTurrets(buildings, 3, planetRadius - 10, planetRadius);
 
     planet.addChild(buildings);
     return planet;
