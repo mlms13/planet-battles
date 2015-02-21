@@ -20,7 +20,8 @@ Game.prototype = {
       turretX = Math.cos(i * angle * (Math.PI / 180)) * radius + offset;
       turretY = Math.sin(i * angle * (Math.PI / 180)) * radius + offset;
       sprite = group.create(turretX, turretY, 'turret');
-      sprite.anchor.setTo(0.5);
+      sprite.anchor.setTo(0.2, 0.5);
+      turrets.push(sprite);
     }
   },
 
@@ -48,6 +49,9 @@ Game.prototype = {
   },
 
   update: function () {
+    turrets.forEach(function (turret) {
+      turret.rotation = Phaser.Point.angle(this.input, turret.world);
+    }, this);
   }
 };
 

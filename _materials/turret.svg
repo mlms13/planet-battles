@@ -14,7 +14,10 @@
    id="svg2983"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="turret.svg"
+   inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/turret.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs2985" />
   <sodipodi:namedview
@@ -24,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="-23.225501"
-     inkscape:cy="83.394929"
+     inkscape:zoom="22.627417"
+     inkscape:cx="4.5096684"
+     inkscape:cy="11.907064"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
@@ -67,8 +70,8 @@
        inkscape:flatsided="false"
        inkscape:rounded="0"
        inkscape:randomized="0"
-       d="m -0.09009879,5.7238293 4.41069759,7.6395537 4.4106987,7.639554 -8.82139647,-1e-6 -8.82139673,0 4.4106988,-7.639553 z"
-       inkscape:transform-center-y="-2.6568077"
-       transform="matrix(0.7635273,0,0,1.0433099,8.0321485,-5.9241364)" />
+       d="m -0.09009874,5.7238293 4.41069764,7.6395537 4.4106985,7.639554 -8.82139639,-1e-6 -8.82139671,0 4.4106988,-7.639553 z"
+       transform="matrix(0,0.69592013,-1.0463778,0,21.985361,8.0624726)"
+       inkscape:transform-center-x="-2.6646204" />
   </g>
 </svg>
