@@ -82,6 +82,7 @@ Game.prototype = {
 
   _addIncomingAttack: function (origin, speed) {
     var missile = attacks.create(origin.x, origin.y, 'missile');
+    missile.anchor.setTo(0.5);
     missile.health = 10;
     missile.rotation = Phaser.Point.angle(buildings.colony.world, missile.world);
     missile.body.velocity = this.physics.arcade.velocityFromRotation(missile.rotation, speed);
@@ -133,6 +134,9 @@ Game.prototype = {
   render: function () {
     this.game.debug.text("Elapsed time: " + this.time.totalElapsedSeconds().toFixed(1), 32, 32);
     // this.game.debug.quadTree(this.physics.arcade.quadTree);
+    // attacks.children.forEach(function (missile) {
+    //   this.game.debug.body(missile);
+    // }, this);
   }
 };
 
