@@ -3,6 +3,7 @@ function Game() {}
 var buildings = {};
 var fireButton;
 var bullets;
+var attacks;
 var nextBulletsAt = 0;
 
 Game.prototype = {
@@ -12,6 +13,7 @@ Game.prototype = {
     this.load.image('colony', 'assets/colony.png');
     this.load.image('turret', 'assets/turret.png');
     this.load.image('bullet', 'assets/bullet.png');
+    this.load.image('missile', 'assets/missile.png');
   },
 
   _prepareBullets: function () {
@@ -72,6 +74,18 @@ Game.prototype = {
     return planet;
   },
 
+  _prepareAttacks: function () {
+    attacks = this.add.group();
+    attacks.enableBody = true;
+    attacks.physicsBodyType = Phaser.Physics.ARCADE;
+  },
+
+  _addIncomingAttack: function (origin, speed) {
+    var missile = attacks.create(origin.x, origin.y, 'missile');
+    missile.rotation = Phaser.Point.angle(buildings.colony.world, missile.world);
+    missile.body.velocity = this.physics.arcade.velocityFromRotation(missile.rotation, speed);
+  },
+
   create: function () {
     this.physics.startSystem(Phaser.Physics.ARCADE);
     fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -79,6 +93,23 @@ Game.prototype = {
     var space = this.add.sprite(0, 0, 'space');
     var planet = this._createPlanet(this.world.centerX - 65, this.world.centerY - 65);
     space.addChild(planet);
+
+    this._prepareAttacks();
+    this.time.events.add(Phaser.Timer.SECOND * 2, function () {
+      var x = Math.floor(Math.random() * this.world.width),
+          y = Math.floor(Math.random() * this.world.height);
+
+      if (Math.random() > 0.5) {
+        // keep x width and move y to perimeter
+        y = (y / this.world.height > 0.5) ? this.world.height : 0;
+      } else {
+        x = (x / this.world.width > 0.5) ? this.world.width : 0;
+      }
+      this._addIncomingAttack({
+        x: x,
+        y: y
+      }, 50);
+    }, this);
   },
 
   update: function () {
@@ -89,6 +120,10 @@ Game.prototype = {
     if (fireButton.isDown) {
       this._fireBullets(buildings.turrets, 400, 1000);
     }
+  },
+
+  render: function () {
+    this.game.debug.text("Elapsed time: " + this.time.totalElapsedSeconds().toFixed(1), 32, 32);
   }
 };
 
