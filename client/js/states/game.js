@@ -37,7 +37,7 @@ Game.prototype = {
       this.physics.arcade.velocityFromRotation(turret.rotation, speed, bullet.body.velocity);
     }, this);
 
-    nextBulletsAt = this.time.now + 250;
+    nextBulletsAt = this.time.now + 100;
   },
 
   _createTurrets: function (howMany, radius, offset) {
@@ -82,12 +82,19 @@ Game.prototype = {
 
   _addIncomingAttack: function (origin, speed) {
     var missile = attacks.create(origin.x, origin.y, 'missile');
+    missile.health = 10;
     missile.rotation = Phaser.Point.angle(buildings.colony.world, missile.world);
     missile.body.velocity = this.physics.arcade.velocityFromRotation(missile.rotation, speed);
   },
 
+  _damageMissile: function (missile, bullet) {
+    missile.damage(1);
+    bullet.kill();
+  },
+
   create: function () {
     this.physics.startSystem(Phaser.Physics.ARCADE);
+    this.physics.arcade.skipQuadTree = false;
     fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     var space = this.add.sprite(0, 0, 'space');
@@ -113,6 +120,7 @@ Game.prototype = {
   },
 
   update: function () {
+    this.physics.arcade.overlap(attacks, bullets, this._damageMissile, null, this);
     buildings.turrets.children.forEach(function (turret) {
       turret.rotation = Phaser.Point.angle(this.input, turret.world);
     }, this);
@@ -124,6 +132,7 @@ Game.prototype = {
 
   render: function () {
     this.game.debug.text("Elapsed time: " + this.time.totalElapsedSeconds().toFixed(1), 32, 32);
+    // this.game.debug.quadTree(this.physics.arcade.quadTree);
   }
 };
 
