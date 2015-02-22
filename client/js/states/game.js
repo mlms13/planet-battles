@@ -3,6 +3,7 @@ function Game() {}
 var buildings = {};
 var fireButton;
 var bullets;
+var nextBulletsAt = 0;
 
 Game.prototype = {
   preload: function () {
@@ -24,11 +25,17 @@ Game.prototype = {
   _fireBullets: function (turrets, speed, lifespan) {
     var bullet;
 
+    if (nextBulletsAt > this.time.now) {
+      return;
+    }
+
     turrets.children.forEach(function (turret) {
       bullet = bullets.create(turret.x, turret.y, 'bullet');
       bullet.lifespan = lifespan;
       this.physics.arcade.velocityFromRotation(turret.rotation, speed, bullet.body.velocity);
     }, this);
+
+    nextBulletsAt = this.time.now + 250;
   },
 
   _createTurrets: function (howMany, radius, offset) {
@@ -80,7 +87,7 @@ Game.prototype = {
     }, this);
 
     if (fireButton.isDown) {
-      this._fireBullets(buildings.turrets, 300, 1000);
+      this._fireBullets(buildings.turrets, 400, 1000);
     }
   }
 };
