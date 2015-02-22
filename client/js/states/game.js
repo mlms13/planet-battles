@@ -17,14 +17,17 @@ Game.prototype = {
     bullets = this.add.group();
     bullets.enableBody = true;
     bullets.physicsBodyType = Phaser.Physics.ARCADE;
+    bullets.setAll('outOfBoundsKill', true);
+    bullets.setAll('checkWorldBounds', true);
   },
 
-  _fireBullets: function (turrets, speed, distance) {
+  _fireBullets: function (turrets, speed, lifespan) {
     var bullet;
 
     turrets.children.forEach(function (turret) {
       bullet = bullets.create(turret.x, turret.y, 'bullet');
-      bullet.body.velocity.y = speed;
+      bullet.lifespan = lifespan;
+      this.physics.arcade.velocityFromRotation(turret.rotation, speed, bullet.body.velocity);
     }, this);
   },
 
@@ -77,7 +80,7 @@ Game.prototype = {
     }, this);
 
     if (fireButton.isDown) {
-      this._fireBullets(buildings.turrets, 200, 300);
+      this._fireBullets(buildings.turrets, 300, 1000);
     }
   }
 };
