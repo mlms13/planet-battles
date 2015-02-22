@@ -63,6 +63,7 @@ Game.prototype = {
 
     // create colony
     buildings.colony = this.add.sprite(planetRadius, planetRadius, 'colony');
+    this.physics.enable(buildings.colony, Phaser.Physics.ARCADE);
     buildings.colony.anchor.setTo(0.5);
     planet.addChild(buildings.colony);
 
@@ -88,9 +89,16 @@ Game.prototype = {
     missile.body.velocity = this.physics.arcade.velocityFromRotation(missile.rotation, speed);
   },
 
-  _damageMissile: function (missile, bullet) {
+  _damageMissile: function (bullet, missile) {
     missile.damage(1);
     bullet.kill();
+  },
+
+  _damageColony: function (colony, missile) {
+    colony.damage(1);
+    missile.kill();
+
+    // TODO: if no more colony, switch state to game over
   },
 
   create: function () {
@@ -121,7 +129,8 @@ Game.prototype = {
   },
 
   update: function () {
-    this.physics.arcade.overlap(attacks, bullets, this._damageMissile, null, this);
+    this.physics.arcade.overlap(buildings.colony, attacks, this._damageColony, null, this);
+    this.physics.arcade.overlap(bullets, attacks, this._damageMissile, null, this);
     buildings.turrets.children.forEach(function (turret) {
       turret.rotation = Phaser.Point.angle(this.input, turret.world);
     }, this);
@@ -137,6 +146,7 @@ Game.prototype = {
     // attacks.children.forEach(function (missile) {
     //   this.game.debug.body(missile);
     // }, this);
+    // this.game.debug.body(buildings.colony);
   }
 };
 
