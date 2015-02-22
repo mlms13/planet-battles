@@ -1,6 +1,8 @@
 function Game() {}
 
 var buildings = {};
+var fireButton;
+var bullets;
 
 Game.prototype = {
   preload: function () {
@@ -8,6 +10,22 @@ Game.prototype = {
     this.load.image('planet', 'assets/planet.png');
     this.load.image('colony', 'assets/colony.png');
     this.load.image('turret', 'assets/turret.png');
+    this.load.image('bullet', 'assets/bullet.png');
+  },
+
+  _prepareBullets: function () {
+    bullets = this.add.group();
+    bullets.enableBody = true;
+    bullets.physicsBodyType = Phaser.Physics.ARCADE;
+  },
+
+  _fireBullets: function (turrets, speed, distance) {
+    var bullet;
+
+    turrets.children.forEach(function (turret) {
+      bullet = bullets.create(turret.x, turret.y, 'bullet');
+      bullet.body.velocity.y = speed;
+    }, this);
   },
 
   _createTurrets: function (howMany, radius, offset) {
@@ -23,6 +41,7 @@ Game.prototype = {
       sprite.anchor.setTo(0.2, 0.5);
     }
 
+    this._prepareBullets();
     return turrets;
   },
 
@@ -38,12 +57,14 @@ Game.prototype = {
     // creat turrets
     buildings.turrets = this._createTurrets(3, planetRadius - 10, planetRadius);
     planet.addChild(buildings.turrets);
+    planet.addChild(bullets);
 
     return planet;
   },
 
   create: function () {
     this.physics.startSystem(Phaser.Physics.ARCADE);
+    fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     var space = this.add.sprite(0, 0, 'space');
     var planet = this._createPlanet(this.world.centerX - 65, this.world.centerY - 65);
@@ -54,6 +75,10 @@ Game.prototype = {
     buildings.turrets.children.forEach(function (turret) {
       turret.rotation = Phaser.Point.angle(this.input, turret.world);
     }, this);
+
+    if (fireButton.isDown) {
+      this._fireBullets(buildings.turrets, 200, 300);
+    }
   }
 };
 
