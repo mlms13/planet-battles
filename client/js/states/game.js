@@ -5,6 +5,7 @@ var fireButton;
 var bullets;
 var attacks;
 var nextBulletsAt = 0;
+var nextAttackAt = 0;
 
 Game.prototype = {
   preload: function () {
@@ -89,6 +90,25 @@ Game.prototype = {
     missile.body.velocity = this.physics.arcade.velocityFromRotation(missile.rotation, speed);
   },
 
+  _generateIncomingAttack: function () {
+    var attackInterval,
+        x = Math.floor(Math.random() * this.world.width),
+        y = Math.floor(Math.random() * this.world.height);
+
+    if (Math.random() > 0.5) {
+      // keep x width and move y to perimeter
+      y = (y / this.world.height > 0.5) ? this.world.height : 0;
+    } else {
+      x = (x / this.world.width > 0.5) ? this.world.width : 0;
+    }
+    this._addIncomingAttack({ x: x, y: y }, 50);
+
+    // set the timer for the next attack so that attacks increase in frequency
+    // over time, but have randomness within 1 second
+    attackInterval = 40 / (this.time.totalElapsedSeconds() + 8);
+    nextAttackAt = this.time.now + 1000 * (attackInterval + Math.random());
+  },
+
   _damageMissile: function (bullet, missile) {
     missile.damage(1);
     bullet.kill();
@@ -112,31 +132,24 @@ Game.prototype = {
 
     this._prepareAttacks();
     this.time.events.add(Phaser.Timer.SECOND * 2, function () {
-      var x = Math.floor(Math.random() * this.world.width),
-          y = Math.floor(Math.random() * this.world.height);
-
-      if (Math.random() > 0.5) {
-        // keep x width and move y to perimeter
-        y = (y / this.world.height > 0.5) ? this.world.height : 0;
-      } else {
-        x = (x / this.world.width > 0.5) ? this.world.width : 0;
-      }
-      this._addIncomingAttack({
-        x: x,
-        y: y
-      }, 50);
     }, this);
   },
 
   update: function () {
+    // handle collisions
     this.physics.arcade.overlap(buildings.colony, attacks, this._damageColony, null, this);
     this.physics.arcade.overlap(bullets, attacks, this._damageMissile, null, this);
+
     buildings.turrets.children.forEach(function (turret) {
       turret.rotation = Phaser.Point.angle(this.input, turret.world);
     }, this);
 
     if (fireButton.isDown) {
       this._fireBullets(buildings.turrets, 400, 1000);
+    }
+
+    if (buildings.colony.alive && nextAttackAt < this.time.now) {
+      this._generateIncomingAttack();
     }
   },
 
