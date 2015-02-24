@@ -1,10 +1,11 @@
 var Planet = require('../entities/planet');
+var Attacks = require('../entities/attacks');
 
 function Game() {}
 
 var planet;
-var fireButton;
 var attacks;
+var fireButton;
 var nextAttackAt = 0;
 
 Game.prototype = {
@@ -15,39 +16,6 @@ Game.prototype = {
     this.load.image('turret', 'assets/turret.png');
     this.load.image('bullet', 'assets/bullet.png');
     this.load.image('missile', 'assets/missile.png');
-  },
-
-  _prepareAttacks: function () {
-    attacks = this.add.group();
-    attacks.enableBody = true;
-    attacks.physicsBodyType = Phaser.Physics.ARCADE;
-  },
-
-  _addIncomingAttack: function (origin, speed) {
-    var missile = attacks.create(origin.x, origin.y, 'missile');
-    missile.anchor.setTo(0.5);
-    missile.health = 10;
-    missile.rotation = Phaser.Point.angle(planet.buildings.colony.world, missile.world);
-    missile.body.velocity = this.physics.arcade.velocityFromRotation(missile.rotation, speed);
-  },
-
-  _generateIncomingAttack: function () {
-    var attackInterval,
-        x = Math.floor(Math.random() * this.world.width),
-        y = Math.floor(Math.random() * this.world.height);
-
-    if (Math.random() > 0.5) {
-      // keep x width and move y to perimeter
-      y = (y / this.world.height > 0.5) ? this.world.height : 0;
-    } else {
-      x = (x / this.world.width > 0.5) ? this.world.width : 0;
-    }
-    this._addIncomingAttack({ x: x, y: y }, 50);
-
-    // set the timer for the next attack so that attacks increase in frequency
-    // over time, but have randomness within 1 second
-    attackInterval = 40 / (this.time.totalElapsedSeconds() + 8);
-    nextAttackAt = this.time.now + 1000 * (attackInterval + Math.random());
   },
 
   _damageMissile: function (bullet, missile) {
@@ -71,10 +39,12 @@ Game.prototype = {
     planet = new Planet(this.game, this.world.centerX - 65, this.world.centerY - 65);
     space.addChild(planet);
 
-    this._prepareAttacks();
+    attacks = new Attacks(this.game);
   },
 
   update: function () {
+    var attackInterval;
+
     // handle collisions
     this.physics.arcade.overlap(planet.buildings.colony, attacks, this._damageColony, null, this);
     this.physics.arcade.overlap(planet.bullets, attacks, this._damageMissile, null, this);
@@ -88,7 +58,13 @@ Game.prototype = {
     }
 
     if (planet.buildings.colony.alive && nextAttackAt < this.time.now) {
-      this._generateIncomingAttack();
+      console.log('adding attack, headed for', planet.buildings.colony.world);
+      attacks.addRandom(planet.buildings.colony.world, 50);
+
+      // set the timer for the next attack so that attacks increase in frequency
+      // over time, but have randomness within 1 second
+      attackInterval = 40 / (this.time.totalElapsedSeconds() + 8);
+      nextAttackAt = this.time.now + 1000 * (attackInterval + Math.random());
     }
   },
 
