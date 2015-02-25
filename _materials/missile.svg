@@ -27,17 +27,24 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8"
-     inkscape:cx="19.41157"
-     inkscape:cy="8.4119999"
+     inkscape:zoom="5.5972222"
+     inkscape:cx="36.524591"
+     inkscape:cy="53.125018"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="472"
-     inkscape:window-height="383"
-     inkscape:window-x="55"
+     inkscape:window-width="987"
+     inkscape:window-height="847"
+     inkscape:window-x="51"
      inkscape:window-y="24"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="0"
+     inkscape:snap-page="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata3792">
     <rdf:RDF>
@@ -54,16 +61,69 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1036.3622)">
+     transform="translate(-0.07717772,-1032.5223)">
     <path
-       sodipodi:type="arc"
+       style="fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 40.373745,1036.5869 c -13.457969,-4.1889 -34.9773678,-1.6161 -34.9773678,-1.6161 l 0,11.4605 c 0,0 22.9167818,1.8253 34.9773678,-1.0439 3.734405,-0.8886 7.705958,-3.7808 7.705958,-4.6865 0,-0.9054 -4.278859,-3.0473 -7.705958,-4.114 z"
+       id="rect2989"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sccsss"
+       inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccssscc"
+       inkscape:connector-curvature="0"
+       id="path3014"
+       d="m 40.373745,1036.5869 c -0.892556,2.1501 -0.725245,6.5497 0,8.8005 0.113219,-0.027 0.226656,-0.057 0.340195,-0.084 3.631378,-0.9763 7.365763,-3.7226 7.365763,-4.6006 0,-0.8672 -3.92374,-2.868 -7.265873,-3.973 -0.147965,-0.047 -0.294791,-0.097 -0.440085,-0.1427 z"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       id="path3795"
-       sodipodi:cx="15.657365"
-       sodipodi:cy="45.997448"
-       sodipodi:rx="15.657365"
-       sodipodi:ry="46.972092"
-       d="m 31.31473,45.997448 a 15.657365,46.972092 0 1 1 -31.31473,0 15.657365,46.972092 0 1 1 31.31473,0 z"
-       transform="matrix(0,0.50739248,-0.50940862,0,47.359485,1036.3893)" />
+       inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:0.19004529;fill-rule:nonzero;stroke:none"
+       d="m 48.079703,1040.7099 c 0,0.9372 -4.090425,3.8206 -7.719324,4.6667 -12.066503,2.8126 -34.9640018,1.0693 -34.9640018,1.0693 -0.0034,-0.8904 0.018458,-2.7126 0.023743,-3.5326 0,0 24.5956108,3.2931 42.6595768,-2.2034 z"
+       id="path3790"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csccc"
+       inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cccsc"
+       inkscape:connector-curvature="0"
+       id="path3794"
+       d="m 46.848802,1040.3001 c -14.133346,-7.0144 -28.414955,-5.4509 -41.4432575,-4.7796 -0.00308,0.6145 0.00416,2.2427 0.00416,2.2427 0,0 9.1036845,-1.2152 17.8916625,-1.1183 7.657307,0.082 16.661779,1.4368 23.547436,3.6552 z"
+       style="fill:#ffffff;fill-opacity:0.34841632;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#686868;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 5.3963772,1037.6844 -5.31919895,-2.8075 c 0,0 0.16054273,3.8222 0.16054273,5.7359 0,1.9137 -0.16054273,5.736 -0.16054273,5.736 l 5.31919895,-2.9168 z"
+       id="rect3796"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsccc"
+       inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path3817"
+       d="m 5.3963772,1042.1566 -5.22189488,1.5671 -0.0973046,2.6251 5.31919898,-2.9168 z"
+       style="fill:#000000;fill-opacity:0.31674212;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path3819"
+       d="m 5.3963772,1037.9031 -5.30773072,-2.7779 0.0385924,1.0208 5.27321012,2.0057 z"
+       style="fill:#fdfdfd;fill-opacity:0.34841632;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
