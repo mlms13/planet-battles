@@ -32,7 +32,6 @@ Game.prototype = {
 
   create: function () {
     this.physics.startSystem(Phaser.Physics.ARCADE);
-    this.physics.arcade.skipQuadTree = false;
     fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     var space = this.add.sprite(0, 0, 'space');
