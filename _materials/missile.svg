@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="48"
-   height="16"
+   width="48.002525"
+   height="20"
    id="svg3787"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -28,12 +28,12 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.5972222"
-     inkscape:cx="36.524591"
-     inkscape:cy="53.125018"
+     inkscape:cx="3.358219"
+     inkscape:cy="-7.9559758"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="987"
+     inkscape:window-width="1144"
      inkscape:window-height="847"
      inkscape:window-x="51"
      inkscape:window-y="24"
@@ -44,7 +44,8 @@
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     inkscape:object-paths="true" />
   <metadata
      id="metadata3792">
     <rdf:RDF>
@@ -53,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -61,7 +62,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-0.07717772,-1032.5223)">
+     transform="translate(-0.07717772,-1029.4507)">
     <path
        style="fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none"
        d="m 40.373745,1036.5869 c -13.457969,-4.1889 -34.9773678,-1.6161 -34.9773678,-1.6161 l 0,11.4605 c 0,0 22.9167818,1.8253 34.9773678,-1.0439 3.734405,-0.8886 7.705958,-3.7808 7.705958,-4.6865 0,-0.9054 -4.278859,-3.0473 -7.705958,-4.114 z"
@@ -125,5 +126,45 @@
        inkscape:export-filename="/home/michael/Projects/Games/planet-battles/client/assets/missile.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <g
+       id="g3819"
+       transform="matrix(1,0,0,1.1178761,0,-122.52477)">
+      <path
+         style="fill:#a8a8a8;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         d="m 7.0254229,1030.722 16.8652881,3.4092 0,2.4957 -16.8652881,-0.04 z"
+         id="path3791"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3793"
+         d="m 7.0254229,1030.722 0.3789952,0.58 0.2526651,5.8371 -0.6316603,0 z"
+         style="fill:#7a7a7a;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="rect2990"
+         d="m 7.4044182,1031.288 16.4862918,3.3688 0,2.4956 -16.4862918,0 z"
+         style="fill:#474747;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    </g>
+    <path
+       style="fill:#989898;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 6.8359253,1049.4507 16.8652877,-2.7192 0,-1.9906 -16.8652877,0.032 z"
+       id="path3826"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path3828"
+       d="m 6.8359253,1049.4507 0.3789953,-0.8535 0.252665,-4.2649 -0.6316603,0 z"
+       style="fill:#7a7a7a;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path3830"
+       d="m 7.2149206,1048.5972 16.4862914,-2.4561 0,-1.8194 -16.4862914,0 z"
+       style="fill:#bdbdbd;fill-opacity:1;fill-rule:nonzero;stroke:none" />
   </g>
 </svg>
