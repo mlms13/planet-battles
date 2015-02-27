@@ -8,7 +8,7 @@ var Planet = function (game, x, y) {
   this.buildings = {};
 
   this._addColony(this.radius, this.radius);
-  this._addTurrets(3, this.radius - 10, this.radius);
+  this._addTurrets(3, this.radius - 30, this.radius);
   this.addBullets();
 };
 

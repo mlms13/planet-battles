@@ -26,7 +26,7 @@ Game.prototype = {
     fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     var space = this.add.sprite(0, 0, 'space');
-    planet = new Planet(this.game, this.world.centerX - 65, this.world.centerY - 65);
+    planet = new Planet(this.game, this.world.centerX - 85, this.world.centerY - 85);
     space.addChild(planet);
 
     nextAttackAt = this.time.now + 200;
