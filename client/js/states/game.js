@@ -9,15 +9,6 @@ var fireButton;
 var nextAttackAt = 0;
 
 Game.prototype = {
-  preload: function () {
-    this.load.image('space', 'assets/space.png');
-    this.load.image('planet', 'assets/planet.png');
-    this.load.image('colony', 'assets/colony.png');
-    this.load.image('turret', 'assets/turret.png');
-    this.load.image('bullet', 'assets/bullet.png');
-    this.load.image('missile', 'assets/missile.png');
-  },
-
   _damageMissile: function (bullet, missile) {
     missile.damage(1);
     bullet.kill();
