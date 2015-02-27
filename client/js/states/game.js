@@ -29,6 +29,8 @@ Game.prototype = {
     planet = new Planet(this.game, this.world.centerX - 65, this.world.centerY - 65);
     space.addChild(planet);
 
+    nextAttackAt = this.time.now + 200;
+
     attacks = new Attacks(this.game);
   },
 
