@@ -15,10 +15,33 @@ Game.prototype = {
   },
 
   _damageColony: function (colony, missile) {
+    var square, fadeOut;
     colony.damage(1);
     missile.kill();
 
-    // TODO: if no more colony, switch state to game over
+    // if no more colony, switch show "game over" message
+    if (!colony.alive) {
+      this.input.keyboard.enabled = false;
+      attacks.destroy();
+
+      // draw a mostly-opaque black box over the game
+      square = this.add.graphics();
+      square.beginFill(0x0, 1);
+      square.alpha = 0;
+      square.drawRect(0, 0, this.world.width, this.world.height);
+
+      // tween it good
+      fadeOut = this.add.tween(square).to({ alpha: 0.7 }, 800);
+
+      fadeOut.onComplete.add(function () {
+          var message = this.add.bitmapText(this.world.centerX, 250, 'audiowide', '', 50);
+          message.text = "Game Over!";
+          message.updateText();
+          message.x = this.world.centerX - (message.textWidth / 2);
+        }, this);
+
+      fadeOut.start();
+    }
   },
 
   create: function () {

@@ -13,6 +13,7 @@ Preloader.prototype = {
     this.load.image('turret', 'assets/turret.png');
     this.load.image('bullet', 'assets/bullet.png');
     this.load.image('missile', 'assets/missile.png');
+    this.load.bitmapFont('audiowide', 'assets/audiowide/font.png', 'assets/audiowide/font.fnt');
   },
   create: function () {
     this.game.state.start('Game');
