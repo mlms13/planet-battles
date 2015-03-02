@@ -41,13 +41,16 @@ Game.prototype = {
   },
 
   _damageColony: function (colony, missile) {
-    var square, fadeOut;
+    var square, fadeOut, explosion;
     colony.damage(1);
     missile.kill();
 
     // if no more colony, switch show "game over" message
     if (!colony.alive) {
-      attacks.destroy();
+      explosion = explosions.getFirstExists(false);
+      explosion.reset(colony.body.x + colony.width / 2, colony.body.y + colony.height / 2);
+      explosion.scale.x = explosion.scale.y = 2.5;
+      explosion.play('explosion', 24, false, true);
 
       // draw a mostly-opaque black box over the game
       square = this.add.graphics();
@@ -62,7 +65,11 @@ Game.prototype = {
       fadeOut.onComplete.add(function () {
         this.state.start('Game Over', true, false, elapsed);
       }, this);
-      fadeOut.start();
+
+      explosion.animations.currentAnim.onComplete.add(function () {
+        attacks.destroy();
+        fadeOut.start();
+      }, this);
     }
   },
 
