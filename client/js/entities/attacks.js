@@ -16,6 +16,11 @@ Attacks.prototype.add = function (origin, target, speed) {
   missile.health = 10;
   missile.rotation = Phaser.Point.angle(target, origin);
   missile.body.velocity = this.game.physics.arcade.velocityFromRotation(missile.rotation, speed);
+
+  // flip texture if missile is coming from the right
+  if (origin.x > this.game.world.width / 2) {
+    missile.scale.y = -1;
+  }
 };
 
 Attacks.prototype.addRandom = function (target, speed) {
