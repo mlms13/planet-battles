@@ -21,7 +21,6 @@ Game.prototype = {
 
     // if no more colony, switch show "game over" message
     if (!colony.alive) {
-      this.input.keyboard.enabled = false;
       attacks.destroy();
 
       // draw a mostly-opaque black box over the game
@@ -60,6 +59,10 @@ Game.prototype = {
   update: function () {
     var attackInterval;
 
+    if (!planet.buildings.colony.alive) {
+      return;
+    }
+
     // handle collisions
     this.physics.arcade.overlap(planet.buildings.colony, attacks, this._damageColony, null, this);
     this.physics.arcade.overlap(planet.bullets, attacks, this._damageMissile, null, this);
@@ -72,7 +75,7 @@ Game.prototype = {
       planet.fireBullets(400, 1000);
     }
 
-    if (planet.buildings.colony.alive && nextAttackAt < this.time.now) {
+    if (nextAttackAt < this.time.now) {
       console.log('adding attack, headed for', planet.buildings.colony.world);
       attacks.addRandom(planet.buildings.colony.world, 50);
 
