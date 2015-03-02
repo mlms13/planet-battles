@@ -101,7 +101,7 @@ gulp.task('watch', ['lint'], function () {
 
   bundler.on('update', rebundle);
   gulp.watch(paths.js.all, ['lint']);
-  gulp.watch(paths.html.all, ['copy']);
+  gulp.watch(paths.html.all, ['copy:html']);
   gulp.watch(paths.assets.all, ['copy:assets']);
   gulp.watch(paths.stylus.all, ['stylus']);
 

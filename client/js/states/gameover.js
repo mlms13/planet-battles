@@ -19,12 +19,11 @@ GameOver.prototype = {
     square.endFill();
 
     // show the "game over" message
-    message = this.add.bitmapText(this.world.centerX, 250, 'Audiowide Glow', 'Game Over!', 50);
+    message = this.add.bitmapText(this.world.centerX, 150, 'Audiowide Glow', 'Game Over!', 50);
     message.alpha = 0;
     message.updateText();
     message.x = this.world.centerX - (message.textWidth / 2);
     this.add.tween(message).to({ alpha: 1 }, 300).start();
-
 
     // add a button to play again
     button = this.add.bitmapText(this.world.centerX, 400, 'Audiowide', 'Play Again', 20);

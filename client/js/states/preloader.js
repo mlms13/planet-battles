@@ -17,7 +17,7 @@ Preloader.prototype = {
     this.load.bitmapFont('Audiowide', 'assets/audiowide/small.png', 'assets/audiowide/small.fnt');
   },
   create: function () {
-    this.game.state.start('Game');
+    this.game.state.start('Main Menu');
   }
 };
 

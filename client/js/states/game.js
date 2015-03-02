@@ -28,6 +28,7 @@ Game.prototype = {
       square.beginFill(0x0, 1);
       square.alpha = 0;
       square.drawRect(0, 0, this.world.width, this.world.height);
+      square.endFill();
 
       // tween it good
       fadeOut = this.add.tween(square).to({ alpha: 0.7 }, 500);
