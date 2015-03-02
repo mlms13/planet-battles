@@ -75,7 +75,9 @@ Game.prototype = {
       return;
     }
 
-    elapsed += this.time.elapsed / 1000;
+    // never allow more than 250ms to be added per frame
+    // which happens when you blur, then re-focus the tab
+    elapsed += Math.min(this.time.elapsed / 1000, 0.25);
     this._updateTime();
 
     // handle collisions
