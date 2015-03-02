@@ -112,7 +112,7 @@ Game.prototype = {
       turret.rotation = Phaser.Point.angle(this.input, turret.world);
     }, this);
 
-    if (fireButton.isDown) {
+    if (fireButton.isDown || this.input.activePointer.isDown) {
       planet.fireBullets(400, 1000);
     }
 
