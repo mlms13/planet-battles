@@ -18,7 +18,7 @@ GameOver.prototype = {
     square.drawRect(0, 0, this.world.width, this.world.height);
 
     // and show the message
-    message = this.add.bitmapText(this.world.centerX, 250, 'audiowide', '', 50);
+    message = this.add.bitmapText(this.world.centerX, 250, 'Audiowide Glow', '', 50);
     message.alpha = 0;
     message.text = "Game Over!";
     message.updateText();
