@@ -19,9 +19,11 @@ GameOver.prototype = {
 
     // and show the message
     message = this.add.bitmapText(this.world.centerX, 250, 'audiowide', '', 50);
+    message.alpha = 0;
     message.text = "Game Over!";
     message.updateText();
     message.x = this.world.centerX - (message.textWidth / 2);
+    this.add.tween(message).to({ alpha: 1 }, 300).start();
   }
 };
 

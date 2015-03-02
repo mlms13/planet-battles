@@ -30,7 +30,7 @@ Game.prototype = {
       square.drawRect(0, 0, this.world.width, this.world.height);
 
       // tween it good
-      fadeOut = this.add.tween(square).to({ alpha: 0.7 }, 800);
+      fadeOut = this.add.tween(square).to({ alpha: 0.7 }, 500);
 
       fadeOut.onComplete.add(function () {
         this.state.start('Game Over');
