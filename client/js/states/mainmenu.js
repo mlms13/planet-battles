@@ -48,6 +48,12 @@ MainMenu.prototype = {
       this.add.tween(button).to({ alpha: 1 }, 500).start();
     }, this);
     fadeIn.start();
+  },
+
+  update: function () {
+    if (this.input.keyboard.isDown(32) || this.input.keyboard.isDown(13)) {
+      this.state.start('Game');
+    }
   }
 };
 
