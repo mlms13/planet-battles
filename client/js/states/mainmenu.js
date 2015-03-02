@@ -42,7 +42,7 @@ MainMenu.prototype = {
     }, this);
 
     // fade everything in, in order
-    fadeIn = this.add.tween(space).to({ alpha: 1 }, 500)
+    fadeIn = this.add.tween(space).to({ alpha: 1 }, 500);
     fadeIn.onComplete.add(function () {
       this.add.tween(title).to({ alpha: 1 }, 500).start();
       this.add.tween(button).to({ alpha: 1 }, 500).start();

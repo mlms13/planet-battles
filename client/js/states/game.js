@@ -6,7 +6,9 @@ function Game() {}
 var planet;
 var attacks;
 var fireButton;
-var nextAttackAt = 0;
+var nextAttackAt;
+var elapsed;
+var timer;
 
 Game.prototype = {
   _damageMissile: function (bullet, missile) {
@@ -34,23 +36,36 @@ Game.prototype = {
       fadeOut = this.add.tween(square).to({ alpha: 0.7 }, 500);
 
       fadeOut.onComplete.add(function () {
-        this.state.start('Game Over');
+        this.state.start('Game Over', true, false, elapsed);
       }, this);
       fadeOut.start();
     }
+  },
+
+  _updateTime: function () {
+    var min = Math.floor(elapsed / 60),
+        sec = elapsed - (min * 60),
+        str = min + " min " + sec.toFixed(1) + " sec";
+
+    timer.text = str;
   },
 
   create: function () {
     this.physics.startSystem(Phaser.Physics.ARCADE);
     fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+    // (re)set timers
+    nextAttackAt = 0;
+    elapsed = 0;
+
     var space = this.add.sprite(0, 0, 'space');
     planet = new Planet(this.game, this.world.centerX - 85, this.world.centerY - 85);
     space.addChild(planet);
 
     nextAttackAt = this.time.now + 200;
-
     attacks = new Attacks(this.game);
+
+    timer = this.add.bitmapText(32, 32, 'Audiowide', '', 20);
   },
 
   update: function () {
@@ -59,6 +74,9 @@ Game.prototype = {
     if (!planet.buildings.colony.alive) {
       return;
     }
+
+    elapsed += this.time.elapsed / 1000;
+    this._updateTime();
 
     // handle collisions
     this.physics.arcade.overlap(planet.buildings.colony, attacks, this._damageColony, null, this);
@@ -78,18 +96,9 @@ Game.prototype = {
 
       // set the timer for the next attack so that attacks increase in frequency
       // over time, but have randomness within 1 second
-      attackInterval = 40 / (this.time.totalElapsedSeconds() + 8);
+      attackInterval = 40 / (elapsed + 8);
       nextAttackAt = this.time.now + 1000 * (attackInterval + Math.random());
     }
-  },
-
-  render: function () {
-    this.game.debug.text("Elapsed time: " + this.time.totalElapsedSeconds().toFixed(1), 32, 32);
-    // this.game.debug.quadTree(this.physics.arcade.quadTree);
-    // attacks.children.forEach(function (missile) {
-    //   this.game.debug.body(missile);
-    // }, this);
-    // this.game.debug.body(buildings.colony);
   }
 };
 

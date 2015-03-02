@@ -2,9 +2,17 @@ var Planet = require('../entities/planet');
 
 function GameOver() {}
 
+var clock;
+
 GameOver.prototype = {
+  init: function (elapsed) {
+    var min = Math.floor(elapsed / 60),
+        sec = elapsed - (min * 60),
+        str = min + " min " + sec.toFixed(1) + " sec";
+    clock = str;
+  },
   create: function () {
-    var space, planet, overlay, message, button, buttonBg;
+    var space, planet, overlay, message, timer, button, buttonBg;
 
     // set up this scene to look like the previous one:
     space = this.add.sprite(0, 0, 'space');
@@ -19,11 +27,17 @@ GameOver.prototype = {
     square.endFill();
 
     // show the "game over" message
-    message = this.add.bitmapText(this.world.centerX, 150, 'Audiowide Glow', 'Game Over!', 50);
+    message = this.add.bitmapText(0, 120, 'Audiowide Glow', 'Game Over!', 50);
     message.alpha = 0;
     message.updateText();
     message.x = this.world.centerX - (message.textWidth / 2);
     this.add.tween(message).to({ alpha: 1 }, 300).start();
+
+    timer = this.add.bitmapText(0, 180, 'Audiowide', 'You Survived For ' + clock, 20);
+    timer.alpha = 0;
+    timer.updateText();
+    timer.x = this.world.centerX - (timer.textWidth / 2);
+    this.add.tween(timer).to({ alpha: 1 }, 300).start();
 
     // add a button to play again
     button = this.add.bitmapText(this.world.centerX, 400, 'Audiowide', 'Play Again', 20);
