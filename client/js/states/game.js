@@ -16,7 +16,7 @@ Game.prototype = {
     explosions = this.add.group();
     explosions.enableBody = true;
     explosions.physicsBodyType = Phaser.Physics.ARCADE;
-    explosions.createMultiple(20, 'explosion');
+    explosions.createMultiple(50, 'explosion');
     explosions.setAll('anchor.x', 0.5);
     explosions.setAll('anchor.y', 0.5);
     explosions.forEach(function (explosion) {
@@ -25,17 +25,19 @@ Game.prototype = {
   },
 
   _damageMissile: function (bullet, missile) {
-    var explosion;
+    var explosion = explosions.getFirstExists(false);
+    explosion.reset(bullet.body.x, bullet.body.y);
     missile.damage(1);
     bullet.kill();
 
-    if (!missile.alive) {
-      explosion = explosions.getFirstExists(false);
-      explosion.reset(missile.body.x + 20, missile.body.y);
+    if (missile.alive) {
+      explosion.scale.x = explosion.scale.y = 0.3;
+    } else {
+      explosion.scale.x = explosion.scale.y = 1;
       explosion.body.velocity.x = missile.body.velocity.x;
       explosion.body.velocity.y = missile.body.velocity.y;
-      explosion.play('explosion', 24, false, true);
     }
+    explosion.play('explosion', 24, false, true);
   },
 
   _damageColony: function (colony, missile) {
