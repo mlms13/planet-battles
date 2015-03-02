@@ -5,15 +5,37 @@ function Game() {}
 
 var planet;
 var attacks;
+var explosions;
 var fireButton;
 var nextAttackAt;
 var elapsed;
 var timer;
 
 Game.prototype = {
+  _prepareExplosions: function () {
+    explosions = this.add.group();
+    explosions.enableBody = true;
+    explosions.physicsBodyType = Phaser.Physics.ARCADE;
+    explosions.createMultiple(20, 'explosion');
+    explosions.setAll('anchor.x', 0.5);
+    explosions.setAll('anchor.y', 0.5);
+    explosions.forEach(function (explosion) {
+      explosion.animations.add('explosion');
+    });
+  },
+
   _damageMissile: function (bullet, missile) {
+    var explosion;
     missile.damage(1);
     bullet.kill();
+
+    if (!missile.alive) {
+      explosion = explosions.getFirstExists(false);
+      explosion.reset(missile.body.x + 20, missile.body.y);
+      explosion.body.velocity.x = missile.body.velocity.x;
+      explosion.body.velocity.y = missile.body.velocity.y;
+      explosion.play('explosion', 24, false, true);
+    }
   },
 
   _damageColony: function (colony, missile) {
@@ -61,6 +83,8 @@ Game.prototype = {
     var space = this.add.sprite(0, 0, 'space');
     planet = new Planet(this.game, this.world.centerX - 85, this.world.centerY - 85);
     space.addChild(planet);
+
+    this._prepareExplosions();
 
     nextAttackAt = this.time.now + 200;
     attacks = new Attacks(this.game);
