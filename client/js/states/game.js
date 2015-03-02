@@ -33,12 +33,8 @@ Game.prototype = {
       fadeOut = this.add.tween(square).to({ alpha: 0.7 }, 800);
 
       fadeOut.onComplete.add(function () {
-          var message = this.add.bitmapText(this.world.centerX, 250, 'audiowide', '', 50);
-          message.text = "Game Over!";
-          message.updateText();
-          message.x = this.world.centerX - (message.textWidth / 2);
-        }, this);
-
+        this.state.start('Game Over');
+      }, this);
       fadeOut.start();
     }
   },
