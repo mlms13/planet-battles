@@ -10,10 +10,10 @@ var Attacks = function (game) {
 Attacks.prototype = Object.create(Phaser.Group.prototype);
 Attacks.prototype.constructor = Attacks;
 
-Attacks.prototype.add = function (origin, target, speed) {
-  var missile = this.create(origin.x, origin.y, 'missile');
+Attacks.prototype.add = function (origin, target, speed, health, texture) {
+  var missile = this.create(origin.x, origin.y, texture);
   missile.anchor.setTo(0.5);
-  missile.health = 10;
+  missile.health = health;
   missile.rotation = Phaser.Point.angle(target, origin);
   missile.body.velocity = this.game.physics.arcade.velocityFromRotation(missile.rotation, speed);
 
@@ -23,9 +23,13 @@ Attacks.prototype.add = function (origin, target, speed) {
   }
 };
 
-Attacks.prototype.addRandom = function (target, speed) {
+Attacks.prototype.addRandom = function (target, speed, fast) {
   var x = Math.floor(Math.random() * this.game.world.width),
-      y = Math.floor(Math.random() * this.game.world.height);
+      y = Math.floor(Math.random() * this.game.world.height),
+      texture = fast ? 'missile2' : 'missile',
+      health = fast ? 5 : 10;
+
+  speed = fast ? speed * 2.2 : speed;
 
   if (Math.random() > 0.5) {
     // keep x width and move y to perimeter
@@ -33,7 +37,7 @@ Attacks.prototype.addRandom = function (target, speed) {
   } else {
     x = (x / this.game.world.width > 0.5) ? this.game.world.width : 0;
   }
-  this.add({ x: x, y: y }, target, speed);
+  this.add({ x: x, y: y }, target, speed, health, texture);
 };
 
 module.exports = Attacks;

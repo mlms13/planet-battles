@@ -126,8 +126,7 @@ Game.prototype = {
     }
 
     if (nextAttackAt < this.time.now) {
-      console.log('adding attack, headed for', planet.buildings.colony.world);
-      attacks.addRandom(planet.buildings.colony.world, 50);
+      attacks.addRandom(planet.buildings.colony.world, 50 + elapsed / 10, Math.random() < elapsed / 600);
 
       // set the timer for the next attack so that attacks increase in frequency
       // over time, but have randomness within 1 second
